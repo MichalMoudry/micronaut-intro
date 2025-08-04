@@ -15,7 +15,7 @@ final class TestControllerTest {
 
     @Inject
     @Client('/')
-    HttpClient httpClient
+    private HttpClient httpClient
 
     @Test
     void helloWorldRespondsCorrectly() {
