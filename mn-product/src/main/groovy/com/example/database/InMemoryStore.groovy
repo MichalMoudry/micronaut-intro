@@ -40,4 +40,13 @@ class InMemoryStore {
         products.put(id, product)
         LOG.debug('Added a product {}', product)
     }
+
+    boolean deleteProduct(int id) {
+        Product product = products.get(id)
+        if (product == null) {
+            return false
+        }
+        products.remove(product)
+        return true
+    }
 }
