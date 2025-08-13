@@ -1,5 +1,6 @@
 package com.example.transport
 
+import com.example.config.ITranslationConfig
 import com.example.service.IPrintService
 import groovy.transform.CompileStatic
 import io.micronaut.context.annotation.Property
@@ -13,12 +14,15 @@ class HelloWorldController {
 
     private final IPrintService printService
     private final String configVal
+    private final ITranslationConfig translationConfig
 
     HelloWorldController(
             IPrintService printService,
-            @Property(name = 'hello.world.message') String configVal) {
+            @Property(name = 'hello.world.message') String configVal,
+            ITranslationConfig translationConfig) {
         this.printService = printService
         this.configVal = configVal
+        this.translationConfig = translationConfig
     }
 
     @Get(produces = MediaType.TEXT_PLAIN)
@@ -29,6 +33,11 @@ class HelloWorldController {
     @Get(uri = 'config', produces = MediaType.TEXT_PLAIN)
     String helloConfig() {
         configVal
+    }
+
+    @Get(uri = 'translation', produces = MediaType.APPLICATION_JSON)
+    ITranslationConfig helloTranslation() {
+        translationConfig
     }
 
 }

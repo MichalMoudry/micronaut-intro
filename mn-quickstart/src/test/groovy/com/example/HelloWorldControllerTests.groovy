@@ -5,6 +5,7 @@ import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
+import io.micronaut.json.tree.JsonNode
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import jakarta.inject.Inject
 import org.junit.jupiter.api.Test
@@ -42,6 +43,14 @@ final class HelloWorldControllerTests {
         Optional<String> responseBody = response.body
         assert responseBody.present
         assert responseBody.get() == '"Hello from config"'
+    }
+
+    @Test
+    void testHelloWorldTranslationEndpoint() {
+        HttpResponse<JsonNode> response = client
+                .toBlocking()
+                .exchange('/hello/translation', JsonNode)
+        assert response.status == HttpStatus.OK
     }
 
 }
